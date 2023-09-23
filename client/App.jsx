@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 const App = () => {
   return (
     <div>
-      <h1>Hello World</h1>
+      <h1>Finance App</h1>
     </div>
   )
 }
