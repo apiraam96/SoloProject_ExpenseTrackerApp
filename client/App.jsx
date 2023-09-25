@@ -1,5 +1,7 @@
 import React from "react";
 import { Switch, Route } from 'react-router-dom'
+import NavBar from './components/NavBar.jsx'
+import TransactionForm from './components/TransactionForm.jsx'
 
 const App = () => {
   const test = {
@@ -25,7 +27,9 @@ const App = () => {
   }
   return (
     <div>
-      <h1>asdfasodfj this is React, Finance App</h1>
+      <NavBar />
+      <h1>Personal Finance App</h1>
+      <TransactionForm />
       <button onClick={testDatabase}>Submit</button>
     </div>
   )
