@@ -5,8 +5,33 @@ const TransactionForm = () => {
   const [expenseOrIncome, setExpenseOrIncome] = useState('EXPENSE');
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(0);
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState('Food & Drinks')
   const [date, setDate] = useState('')
+
+  let transactionToPost = {
+    transactionType: expenseOrIncome,
+    title: title,
+    amount: amount,
+    date: date,
+    category: category
+  }
+
+  function postTransaction() {
+    fetch('/api', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(transactionToPost)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+      })
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+    postTransaction();
+  }
 
   return (
     <div className='container transactionwrapper'>
@@ -29,15 +54,11 @@ const TransactionForm = () => {
           <option value="Miscellaneous">Miscellaneous</option>
         </select>
         <div>
-          <label>Year</label><input type='text' placeholder='2023' width='5px'></input>
-          <label>Month</label><input type='text' placeholder='9'></input>
-          <label>Day</label><input type='text' placeholder='5'></input>
+          <label>Transaction Date</label>
+          <input type='date' onChange={e => setDate(e.target.value)} />
         </div>
         <div>
-          <input type="submit" onClick={(e) => {
-            e.preventDefault()
-            console.log(title, amount, category, expenseOrIncome)
-          }} value="Submit Form Here" />
+          <input type="submit" onClick={(e) => onSubmit(e)} value="Submit Form Here" />
         </div>
       </form>
     </div>

@@ -43,3 +43,13 @@ h1 {
 .transactionwrapper label {
   padding-right: 10px;
 }
+
+.transaction-list {
+  height: 100px;
+  overflow: scroll;
+  border: 1px solid red;
+}
+
+.eachTransaction {
+  height: 50px;
+}

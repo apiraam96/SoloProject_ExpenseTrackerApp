@@ -30,7 +30,7 @@ app.use(express.static(DIST_DIR))
 app.post('/api', async (req, res) => {
   const transaction = await Transaction.create(req.body);
   console.log(transaction);
-  return res.json('hello');
+  return res.json('transaction successfully sent');
 })
 
 app.listen(PORT, () => {
