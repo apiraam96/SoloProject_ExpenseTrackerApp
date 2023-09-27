@@ -1,21 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { GlobalContext } from '../context/GlobalState.js'
 
 const Balance = () => {
-  const [balance, setBalance] = useState(0)
-  const [totalIncome, setTotalIncome] = useState(0)
-  const [totalExpense, setTotalExpense] = useState(0)
+  const context = useContext(GlobalContext)
+  let incomeSheets = context.transactions.filter(ele => ele.transactionType == 'INCOME')
+  let expenseSheets = context.transactions.filter(ele => ele.transactionType == 'EXPENSE')
 
-  function totalInfo() {
-    fetch('/total')
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-      })
+  let findTotalIncome = () => {
+    let sum = 0;
+    for (let i = 0; i < incomeSheets.length; i++) {
+      sum += incomeSheets[i].amount
+    }
+    return sum;
   }
+
+  let findTotalExpense = () => {
+    let sum = 0;
+    for (let i = 0; i < expenseSheets.length; i++) {
+      sum += expenseSheets[i].amount
+    }
+    return sum;
+  }
+
+  let totalIncome = findTotalIncome();
+  let totalExpense = findTotalExpense();
+  let balance = totalIncome - totalExpense
 
   return (
     <div>
-      <h4>Total Balance</h4>
+      <h3>Total Balance: {balance}</h3>
+      <h4>Total Income: {totalIncome}</h4>
+      <h4>Total Expense: {totalExpense}</h4>
 
     </div>
   )

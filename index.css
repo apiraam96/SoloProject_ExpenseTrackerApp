@@ -45,11 +45,15 @@ h1 {
 }
 
 .transaction-list {
-  height: 100px;
+  height: 500px;
+  width: 700px;
   overflow: scroll;
-  border: 1px solid red;
+  border: 1px solid #9f9f9f;
+
+  backdrop-filter: blur(2px);
 }
 
 .eachTransaction {
   height: 50px;
+  padding-left: 10px;
 }

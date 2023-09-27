@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
-import DatePicker from 'react-date-picker'
+import React, { useState, useContext } from 'react'
+import { GlobalContext } from '../context/GlobalState';
 
 const TransactionForm = () => {
+  const transactionListRender = useContext(GlobalContext)
+
   const [expenseOrIncome, setExpenseOrIncome] = useState('EXPENSE');
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(0);
@@ -25,6 +27,7 @@ const TransactionForm = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data)
+        transactionListRender.setListRender(!transactionListRender.listRender);
       })
   }
 
@@ -58,7 +61,7 @@ const TransactionForm = () => {
           <input type='date' onChange={e => setDate(e.target.value)} />
         </div>
         <div>
-          <input type="submit" onClick={(e) => onSubmit(e)} value="Submit Form Here" />
+          <input type="submit" onClick={(e) => onSubmit(e)} value="Submit Transaction" />
         </div>
       </form>
     </div>

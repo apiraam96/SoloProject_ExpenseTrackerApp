@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose')
 const cors = require('cors')
-const Transaction = require('../db/transactionModel')
+const Transaction = require('./db/transactionModel.js')
 
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '../dist')
@@ -21,7 +21,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use(express.static(DIST_DIR))
+// app.use(express.static(DIST_DIR))
 
 // app.get('/', (req, res) => {
 //   res.sendFile(HTML_FILE)
@@ -32,6 +32,13 @@ app.post('/api', async (req, res) => {
   console.log(transaction);
   return res.json('transaction successfully sent');
 })
+
+app.get('/gettransactions', async (req, res) => {
+  const transactions = await Transaction.find({});
+  console.log(transactions);
+  return res.json(transactions);
+});
+
 
 app.listen(PORT, () => {
   console.log('listening on port: ' + PORT)

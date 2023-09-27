@@ -4,7 +4,7 @@ import { GlobalProvider } from './context/GlobalState'
 import NavBar from './components/NavBar.jsx'
 import TransactionForm from './components/TransactionForm.jsx'
 import TransactionList from './components/TransactionList.jsx'
-
+import Balance from './components/Balance.jsx';
 
 const App = () => {
 
@@ -14,6 +14,7 @@ const App = () => {
       <h1>Personal Finance App</h1>
       <TransactionForm />
       <TransactionList />
+      <Balance />
     </GlobalProvider>
   )
 };
