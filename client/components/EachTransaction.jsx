@@ -7,8 +7,11 @@ const EachTransaction = ({ transaction }) => {
 
   function deleteTransaction() {
     fetch(`/delete/${transaction._id}`, {
-      method: 'DELETE'
-      // headers: { 'Content- type': 'application/json' }
+      method: 'DELETE',
+      headers: {
+        'x-access-token': sessionStorage.getItem('authToken'),
+        'Content-type': 'application/json'
+      }
     })
       .then(res => res.json())
       .then(data => console.log(data))

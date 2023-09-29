@@ -21,7 +21,10 @@ const TransactionForm = () => {
   function postTransaction() {
     fetch('/api', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'x-access-token': sessionStorage.getItem('authToken'),
+        'Content-type': 'application/json'
+      },
       body: JSON.stringify(transactionToPost)
     })
       .then(res => res.json())
@@ -37,6 +40,7 @@ const TransactionForm = () => {
       alert('Incorrect value in fields!')
     }
     else {
+      console.log(transactionToPost)
       postTransaction();
     }
   }

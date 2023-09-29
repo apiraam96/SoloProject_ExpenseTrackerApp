@@ -7,7 +7,11 @@ const TransactionList = () => {
   console.log(context);
 
   function fetchingTransactions() {
-    fetch('/gettransactions')
+    fetch('/gettransactions', {
+      headers: {
+        'x-access-token': sessionStorage.getItem('authToken')
+      }
+    })
       .then(res => res.json())
       .then(data => context.setTransactions(data))
   }

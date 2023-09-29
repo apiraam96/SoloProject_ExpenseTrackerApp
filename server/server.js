@@ -30,27 +30,47 @@ app.use(cors());
 // })
 
 app.post('/api', async (req, res) => {
-  const transaction = await Transaction.create(req.body);
-  console.log(transaction);
-  return res.json('transaction successfully sent');
-})
-
-app.get('/gettransactions', async (req, res) => {
-  const transactions = await Transaction.find({});
-  console.log(transactions);
-  return res.json(transactions);
-});
-
-app.delete('/delete/:id', async (req, res) => {
-  const objectId = req.params.id;
-  console.log(objectId)
+  console.log('This is the req.body: ', req.body)
+  const token = req.headers['x-access-token']
   try {
-    await Transaction.deleteOne({ _id: objectId })
+    const decodedUserInfo = jwt.verify(token, 'secret123')
+    const userEmail = decodedUserInfo.email
+    const user = await User.findOneAndUpdate({ email: userEmail }, { $push: { transactions: req.body } })
+    console.log(user.transactions)
+    return res.json('transaction successfully sent')
   }
   catch (e) {
     console.log(e)
   }
-  res.json('server connected to delete request')
+})
+
+app.get('/gettransactions', async (req, res) => {
+  const token = req.headers['x-access-token']
+  try {
+    const decodedUserInfo = jwt.verify(token, 'secret123')
+    const userEmail = decodedUserInfo.email;
+    const user = await User.findOne({ email: userEmail })
+    console.log(user.transactions)
+    return res.json(user.transactions)
+  }
+  catch (e) {
+    console.log(e)
+  }
+});
+
+app.delete('/delete/:id', async (req, res) => {
+  const transactionId = req.params.id;
+  console.log('from frontend', transactionId)
+  const token = req.headers['x-access-token']
+  try {
+    const decodedUserInfo = jwt.verify(token, 'secret123')
+    const userEmail = decodedUserInfo.email
+    const user = await User.findOneAndUpdate({ email: userEmail }, { $pull: { transactions: { _id: transactionId } } })
+    res.json('Deleted transaction')
+  }
+  catch (e) {
+    console.log(e)
+  }
 })
 
 app.post('/login', async (req, res) => {
