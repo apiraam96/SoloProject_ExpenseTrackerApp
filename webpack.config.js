@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin')
 
 module.exports = {
   entry: './client/index.js',
@@ -9,9 +10,10 @@ module.exports = {
     publicPath: '/'
   },
   mode: process.env['NODE_ENV'],
-  plugins: [new HtmlWebpackPlugin({
-    template: './index.html'
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html'
+    }), new NodePolyfillPlugin()],
   module: {
     rules: [
       {

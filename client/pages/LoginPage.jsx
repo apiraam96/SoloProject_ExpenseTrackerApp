@@ -16,11 +16,22 @@ const LoginPage = () => {
       })
     })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+        if (data.user && data.token) {
+          sessionStorage.setItem('authToken', data.token)
+          alert('Login Successful')
+          window.location.href = '/finance';
+        }
+        else {
+          alert('Incorrect username or password')
+        }
+      })
   }
 
   return (
     <>
+      <h1>Login</h1>
       <form onSubmit={onSubmit}>
         <label>Email:</label>
         <input type='email' onChange={(e) => {

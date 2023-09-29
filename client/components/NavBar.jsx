@@ -1,11 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const NavBar = () => {
+  const navigate = useNavigate()
+
+  function signOut() {
+    sessionStorage.removeItem('authToken')
+    navigate('/')
+  }
+
   return (
     <div className='navBar'>
       <p>Personal Finance App</p>
-      <p><Link to='/' className='link'>Sign out</Link></p>
+      <p onClick={signOut} className='link' >Sign out</p>
     </div>
   )
 }

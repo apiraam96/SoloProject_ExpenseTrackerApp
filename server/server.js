@@ -3,7 +3,9 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose')
 const cors = require('cors')
+const jwt = require('jsonwebtoken')
 const Transaction = require('./db/transactionModel.js')
+const { User, Transactions } = require('./db/userModel.js')
 
 const PORT = 3000;
 const DIST_DIR = path.resolve(__dirname, '../dist')
@@ -51,12 +53,42 @@ app.delete('/delete/:id', async (req, res) => {
   res.json('server connected to delete request')
 })
 
-app.post('/login', (req, res) => {
-  res.json(req.body)
+app.post('/login', async (req, res) => {
+  console.log(req.body)
+  try {
+    const user = await User.findOne({ email: req.body.email, password: req.body.password })
+    if (user) {
+      const token = jwt.sign({
+        name: user.firstName,
+        email: user.email
+      }, 'secret123')
+      return res.json({ user: true, token: token })
+    }
+    else {
+      return res.json({ user: false })
+    }
+  }
+  catch (e) {
+    console.log(e)
+  }
+
 })
 
-app.post('/signup', (req, res) => {
-  res.json(req.body)
+app.post('/signup', async (req, res) => {
+  console.log(req.body)
+  try {
+    const user = await User.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password
+    });
+    res.status(200).json('User created')
+  }
+  catch (e) {
+    console.log(e)
+    res.json('User already exists')
+  }
 })
 
 app.use('*', (req, res) => {
