@@ -5,7 +5,8 @@ module.exports = {
   entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   mode: process.env['NODE_ENV'],
   plugins: [new HtmlWebpackPlugin({
@@ -33,6 +34,8 @@ module.exports = {
     ]
   },
   devServer: {
+    historyApiFallback: true,
+    hot: true,
     static: {
       directory: path.join(__dirname, 'public')
     },
@@ -42,6 +45,15 @@ module.exports = {
         target: 'http://localhost:3000',
       },
       '/gettransactions': {
+        target: 'http://localhost:3000'
+      },
+      '/delete/': {
+        target: 'http://localhost:3000'
+      },
+      '/login': {
+        target: 'http://localhost:3000'
+      },
+      '/signup': {
         target: 'http://localhost:3000'
       }
     }

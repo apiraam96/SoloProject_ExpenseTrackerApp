@@ -54,6 +54,36 @@ h1 {
 }
 
 .eachTransaction {
-  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
   padding-left: 10px;
+  border: 1px solid #303034;
+}
+
+.hide-delete-button {
+  display: none;
+}
+
+.show-delete-button {
+  display: block;
+  padding-right: 10px;
+}
+
+.balance-div {
+  border: 1px solid #9f9f9f;
+  border-radius: 25px;
+  backdrop-filter: blur(2px);
+  padding: 10px;
+  width: 500px;
+  margin-left: 10px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-shadow: 0 0 10px white;
 }

@@ -39,6 +39,29 @@ app.get('/gettransactions', async (req, res) => {
   return res.json(transactions);
 });
 
+app.delete('/delete/:id', async (req, res) => {
+  const objectId = req.params.id;
+  console.log(objectId)
+  try {
+    await Transaction.deleteOne({ _id: objectId })
+  }
+  catch (e) {
+    console.log(e)
+  }
+  res.json('server connected to delete request')
+})
+
+app.post('/login', (req, res) => {
+  res.json(req.body)
+})
+
+app.post('/signup', (req, res) => {
+  res.json(req.body)
+})
+
+app.use('*', (req, res) => {
+  res.status(404).send('Not Found')
+})
 
 app.listen(PORT, () => {
   console.log('listening on port: ' + PORT)

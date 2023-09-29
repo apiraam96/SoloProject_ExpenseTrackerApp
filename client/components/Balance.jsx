@@ -22,12 +22,13 @@ const Balance = () => {
     return sum;
   }
 
+
   let totalIncome = findTotalIncome();
   let totalExpense = findTotalExpense();
   let balance = totalIncome - totalExpense
 
   return (
-    <div>
+    <div className='balance-div'>
       <h3>Total Balance: {balance}</h3>
       <h4>Total Income: {totalIncome}</h4>
       <h4>Total Expense: {totalExpense}</h4>

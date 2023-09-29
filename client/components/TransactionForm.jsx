@@ -8,7 +8,7 @@ const TransactionForm = () => {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState('Food & Drinks')
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState('yyy-mm-dd')
 
   let transactionToPost = {
     transactionType: expenseOrIncome,
@@ -33,7 +33,12 @@ const TransactionForm = () => {
 
   function onSubmit(e) {
     e.preventDefault();
-    postTransaction();
+    if (title == '' || !parseInt(amount) || date == 'yyy-mm-dd') {
+      alert('Incorrect value in fields!')
+    }
+    else {
+      postTransaction();
+    }
   }
 
   return (
@@ -47,7 +52,7 @@ const TransactionForm = () => {
         </div>
         <div>
           <label>Amount</label>
-          <input type='text' onChange={e => setAmount(e.target.value)}></input>
+          <input type='number' onChange={e => setAmount(e.target.value)}></input>
         </div>
         <label>Category</label>
         <select onChange={e => setCategory(e.target.value)}>
