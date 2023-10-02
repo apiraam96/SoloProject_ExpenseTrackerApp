@@ -29,9 +29,15 @@ const Balance = () => {
 
   return (
     <div className='balance-div'>
-      <h3>Total Balance: {balance}</h3>
-      <h4>Total Income: {totalIncome}</h4>
-      <h4>Total Expense: {totalExpense}</h4>
+      <h2>Balance: {(balance < 0) ? `-$${-balance}` : `$${balance}`}</h2>
+      <div className='balance-IncomeExpenseText'>
+        <h4>Total Income: </h4>
+        <h4 className='income-style money'>${totalIncome}</h4>
+      </div>
+      <div className='balance-IncomeExpenseText'>
+        <h4>Total Expense: </h4>
+        <h4 className='expense-style money'>${totalExpense}</h4>
+      </div>
 
     </div>
   )

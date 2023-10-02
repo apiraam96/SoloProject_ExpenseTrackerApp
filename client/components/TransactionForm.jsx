@@ -6,19 +6,33 @@ const TransactionForm = () => {
 
   const [expenseOrIncome, setExpenseOrIncome] = useState('EXPENSE');
   const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('Food & Drinks')
   const [date, setDate] = useState('yyy-mm-dd')
+  const [incomeButton, setIncomeButton] = useState('no-click-income-button')
+  const [expenseButton, setExpenseButton] = useState('click-expense-button')
 
-  let transactionToPost = {
-    transactionType: expenseOrIncome,
-    title: title,
-    amount: amount,
-    date: date,
-    category: category
-  }
+  const [showCategory, setShowCategory] = useState('show-category')
+  let transactionToPost;
 
   function postTransaction() {
+    if (showCategory == 'show-category') {
+      transactionToPost = {
+        transactionType: expenseOrIncome,
+        title: title,
+        amount: amount,
+        date: date,
+        category: category
+      }
+    }
+    else {
+      transactionToPost = {
+        transactionType: expenseOrIncome,
+        title: title,
+        amount: amount,
+        date: date,
+      }
+    }
     fetch('/api', {
       method: 'POST',
       headers: {
@@ -43,34 +57,51 @@ const TransactionForm = () => {
       console.log(transactionToPost)
       postTransaction();
     }
+    setTitle('');
+    setAmount('');
   }
 
   return (
-    <div className='container transactionwrapper'>
+    <div className='transactionwrapper'>
+      <h2>Make a Transaction</h2>
       <form onSubmit={e => e.preventDefault()}>
-        <button onClick={() => setExpenseOrIncome('EXPENSE')}>Expense</button>
-        <button onClick={() => setExpenseOrIncome('INCOME')}>Income</button>
-        <div>
+        <div className='expense-income-buttons'>
+          <div className={expenseButton} onClick={() => {
+            setExpenseButton('click-expense-button')
+            setIncomeButton('no-click-income-button')
+            setExpenseOrIncome('EXPENSE')
+            setShowCategory('show-category')
+          }}>Expense</div>
+          <div className={incomeButton} onClick={() => {
+            setExpenseButton('no-click-expense-button')
+            setIncomeButton('click-income-button')
+            setExpenseOrIncome('INCOME')
+            setShowCategory('no-category')
+          }}>Income</div>
+        </div>
+        <div className='transaction-form-separation'>
           <label>Title</label>
-          <input type='text' onChange={e => setTitle(e.target.value)}></input>
+          <input type='text' onChange={e => setTitle(e.target.value)} value={title}></input>
         </div>
-        <div>
+        <div className='transaction-form-separation'>
           <label>Amount</label>
-          <input type='number' onChange={e => setAmount(e.target.value)}></input>
+          <input type='text' onChange={e => setAmount(e.target.value)} value={amount}></input>
         </div>
-        <label>Category</label>
-        <select onChange={e => setCategory(e.target.value)}>
-          <option value="Food & Drinks">Food & Drinks</option>
-          <option value="Bills">Bills</option>
-          <option value="Transportation">Transportation</option>
-          <option value="Miscellaneous">Miscellaneous</option>
-        </select>
-        <div>
+        <div className='transaction-form-separation'>
           <label>Transaction Date</label>
           <input type='date' onChange={e => setDate(e.target.value)} />
         </div>
-        <div>
-          <input type="submit" onClick={(e) => onSubmit(e)} value="Submit Transaction" />
+        <div className={showCategory}>
+          <label>Category</label>
+          <select className='transaction-form-category' onChange={e => setCategory(e.target.value)}>
+            <option value="Food & Drinks">Food & Drinks</option>
+            <option value="Bills">Bills</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Miscellaneous">Miscellaneous</option>
+          </select>
+        </div>
+        <div className='submit-transaction-button' onClick={onSubmit}>
+          <p>Submit Transaction</p>
         </div>
       </form>
     </div>

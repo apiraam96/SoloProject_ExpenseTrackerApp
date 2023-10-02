@@ -11,7 +11,7 @@ const NavBar = () => {
 
   return (
     <div className='navBar'>
-      <p>Personal Finance App</p>
+      <p>SmartSpend.</p>
       <p onClick={signOut} className='link' >Sign out</p>
     </div>
   )

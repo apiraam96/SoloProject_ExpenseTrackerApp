@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate();
 
   function onSubmit(e) {
     e.preventDefault()
@@ -20,8 +21,7 @@ const LoginPage = () => {
         console.log(data)
         if (data.user && data.token) {
           sessionStorage.setItem('authToken', data.token)
-          alert('Login Successful')
-          window.location.href = '/finance';
+          navigate('/finance');
         }
         else {
           alert('Incorrect username or password')
@@ -30,22 +30,31 @@ const LoginPage = () => {
   }
 
   return (
-    <>
-      <h1>Login</h1>
-      <form onSubmit={onSubmit}>
-        <label>Email:</label>
-        <input type='email' onChange={(e) => {
-          setEmail(e.target.value)
-        }}></input>
-        <label>Password:</label>
-        <input type='text' onChange={(e) => {
-          setPassword(e.target.value)
-        }}></input>
-        <input type='submit' value='Login'></input>
-        <h5>Sign up <Link to='/signup'>Here</Link></h5>
-        <h5>Go to Finance app <Link to='/finance'>here</Link></h5>
-      </form>
-    </>
+    <div className='login-page'>
+      <div className='login-container'>
+        <h1>Login to your account</h1>
+        <h5>See what's going on with your money</h5>
+        <form onSubmit={onSubmit}>
+          <div className='form-separation'>
+            <label>Email: </label>
+            <input type='email' className='inputfield' onChange={(e) => {
+              setEmail(e.target.value)
+            }}></input>
+          </div>
+          <div className='form-separation'>
+            <label>Password: </label>
+            <input type='password' className='inputfield' onChange={(e) => {
+              setPassword(e.target.value)
+            }}></input>
+          </div>
+          <div className='login-button' onClick={onSubmit}><p>Login</p></div>
+          <h6>Not Registered Yet?  <Link to='/signup' className='registerlink'>Create an account</Link></h6>
+        </form>
+      </div>
+      <div className='logo'>
+        <h1>SmartSpend.</h1>
+      </div>
+    </div>
   )
 
 }

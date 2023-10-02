@@ -20,14 +20,14 @@ const TransactionList = () => {
   // fetchingTransactions();
 
   return (
-    <>
-      <h3>Transaction History</h3>
+    <div className='transactionlist-div'>
+      <h2>Transaction History</h2>
       <div className='transaction-list'>
         <ul>
           {context.transactions.toReversed().map((ele, i) => <EachTransaction transaction={ele} key={i} />)}
         </ul>
       </div >
-    </>
+    </div>
   )
 }
 

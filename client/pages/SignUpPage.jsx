@@ -31,29 +31,43 @@ const SignUpPage = () => {
   }
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={onSubmit}>
-        <label>First Name: </label>
-        <input type='text' onChange={(e) => {
-          setNewFirstName(e.target.value);
-        }}></input>
-        <label>Last Name: </label>
-        <input type='text' onChange={(e) => {
-          setNewLastName(e.target.value);
-        }}></input>
-        <label>Email: </label>
-        <input type='email' onChange={(e) => {
-          setNewEmail(e.target.value);
-        }}></input>
-        <label>Password: </label>
-        <input type='text' onChange={(e) => {
-          setNewPassword(e.target.value);
-        }}></input>
-        <input type='submit' value='Sign Up'></input>
-        <h5>Login <Link to='/'>Here</Link></h5>
-      </form>
-    </>
+    <div className='signup-page'>
+      <div className='signup-container'>
+        <h1>Create an account</h1>
+        <h5>Start your personal finance journey today</h5>
+        <form onSubmit={onSubmit}>
+          <div className='form-separation'>
+            <label>First Name: </label>
+            <input type='text' className='inputfield' onChange={(e) => {
+              setNewFirstName(e.target.value);
+            }}></input>
+          </div>
+          <div className='form-separation'>
+            <label>Last Name: </label>
+            <input type='text' className='inputfield' onChange={(e) => {
+              setNewLastName(e.target.value);
+            }}></input>
+          </div>
+          <div className='form-separation'>
+            <label>Email: </label>
+            <input type='email' className='inputfield' onChange={(e) => {
+              setNewEmail(e.target.value);
+            }}></input>
+          </div>
+          <div className='form-separation'>
+            <label>Password: </label>
+            <input type='text' className='inputfield' onChange={(e) => {
+              setNewPassword(e.target.value);
+            }}></input>
+          </div>
+          <div className='login-button' onClick={onSubmit}><p>Sign up</p></div>
+          <h6>Already have an account? <Link to='/' className='registerlink'>Login here</Link></h6>
+        </form>
+      </div>
+      <div className='logo'>
+        <h1>SmartSpend.</h1>
+      </div>
+    </div>
   )
 
 
