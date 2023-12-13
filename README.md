@@ -1,1 +1,1 @@
-# SoloProject_ExpenseTrackerApp
+# Personal Finance App
