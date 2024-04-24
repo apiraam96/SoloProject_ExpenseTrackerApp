@@ -1,3 +1,3 @@
-# SoloProject_ExpenseTrackerApp
+# Personal Finance App
 
-## This is a personal finace app called, Smart Spend
+## This app allows the user to locally authenticate themselves and veiw their expense and income
